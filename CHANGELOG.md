@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0
+
+- Add an icon for the integration (shown in Home Assistant 2026.3 and newer).
+- README: one transparent image per card in a plain `<img>` tag, so the screenshots show up in HACS.
+
 ## 0.3.2
 
 - Use absolute URLs for the README images and links, so that they show up in HACS.

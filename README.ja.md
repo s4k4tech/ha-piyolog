@@ -11,10 +11,7 @@
 
 > **非公式プロジェクトです。** ぴよログとは無関係で、公認・提携を受けていません。
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-dark-ja.png">
-  <img alt="サマリーカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-light-ja.png" width="458">
-</picture>
+<img alt="サマリーカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-light-ja.png" width="442">
 
 *サマリーカードの表示例（サンプルデータ）。ほかのカードは[ダッシュボードカード](#ダッシュボードカード)にあります。*
 
@@ -90,10 +87,7 @@ PiyoLog のデバイスが 1 つだけなら、`device_id` は省略できます
 
 `custom:piyolog-summary-card`
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-dark-ja.png">
-  <img alt="サマリーカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-light-ja.png" width="458">
-</picture>
+<img alt="サマリーカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-light-ja.png" width="442">
 
 ミルク・授乳・おしっこ・うんちからの経過時間、今日の合計、最後の睡眠記録を表示します。
 
@@ -112,10 +106,7 @@ totals: [formula, sleep]
 
 `custom:piyolog-list-card`
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/list-dark-ja.png">
-  <img alt="リストカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/list-light-ja.png" width="273">
-</picture>
+<img alt="リストカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/list-light-ja.png" width="257">
 
 最新の記録を 1 行ずつ並べる、幅の狭いカードです。初期表示は、授乳・おしっこ・うんち・睡眠です。
 
@@ -136,10 +127,7 @@ grid_options:
 
 `custom:piyolog-timeline-card`
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/timeline-dark-ja.png">
-  <img alt="タイムラインカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/timeline-light-ja.png" width="458">
-</picture>
+<img alt="タイムラインカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/timeline-light-ja.png" width="442">
 
 今日の睡眠・授乳・おむつの記録の時系列と、最新の記録を表示します。
 
@@ -161,15 +149,9 @@ legend: false
 
 ミルク（`kind: formula`、初期値）または睡眠（`kind: sleep`）を 1 行で表示します。
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-formula-dark-ja.png">
-  <img alt="ミルクのコンパクトカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-formula-light-ja.png" width="458">
-</picture>
+<img alt="ミルクのコンパクトカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-formula-light-ja.png" width="442">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-sleep-dark-ja.png">
-  <img alt="睡眠のコンパクトカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-sleep-light-ja.png" width="458">
-</picture>
+<img alt="睡眠のコンパクトカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-sleep-light-ja.png" width="442">
 
 | オプション | 項目 |
 |---|---|

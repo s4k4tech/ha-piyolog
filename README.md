@@ -11,10 +11,7 @@ Home Assistant integration and dashboard cards for [PiyoLog](https://www.piyolog
 
 > **Unofficial project.** This project is not affiliated with, endorsed by, or sponsored by PiyoLog.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-dark-en.png">
-  <img alt="The summary card" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-light-en.png" width="458">
-</picture>
+<img alt="The summary card" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-light-en.png" width="442">
 
 *The summary card, with sample data. The other cards are shown under [Dashboard cards](#dashboard-cards).*
 
@@ -90,10 +87,7 @@ For the lists below: items are shown in the order you write them. Leave an optio
 
 `custom:piyolog-summary-card`
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-dark-en.png">
-  <img alt="The summary card" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-light-en.png" width="458">
-</picture>
+<img alt="The summary card" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-light-en.png" width="442">
 
 Time since the last formula, breastfeeding, pee and poop, today's totals, and the last sleep record.
 
@@ -112,10 +106,7 @@ totals: [formula, sleep]
 
 `custom:piyolog-list-card`
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/list-dark-en.png">
-  <img alt="The list card" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/list-light-en.png" width="273">
-</picture>
+<img alt="The list card" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/list-light-en.png" width="257">
 
 A narrow list with one line per record. It shows the last breastfeeding, pee, poop and sleep by default.
 
@@ -136,10 +127,7 @@ grid_options:
 
 `custom:piyolog-timeline-card`
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/timeline-dark-en.png">
-  <img alt="The timeline card" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/timeline-light-en.png" width="458">
-</picture>
+<img alt="The timeline card" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/timeline-light-en.png" width="442">
 
 Sleep, feeding and diaper records across today, plus the latest records.
 
@@ -161,15 +149,9 @@ legend: false
 
 One line for formula (`kind: formula`, the default) or sleep (`kind: sleep`).
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-formula-dark-en.png">
-  <img alt="The compact card for formula" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-formula-light-en.png" width="458">
-</picture>
+<img alt="The compact card for formula" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-formula-light-en.png" width="442">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-sleep-dark-en.png">
-  <img alt="The compact card for sleep" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-sleep-light-en.png" width="458">
-</picture>
+<img alt="The compact card for sleep" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-sleep-light-en.png" width="442">
 
 | Option | Items |
 |---|---|

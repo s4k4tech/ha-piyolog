@@ -13,8 +13,9 @@ Never put a real PiyoLog feed URL, the child's real name or the user's email in 
 
 - `custom_components/piyolog/`: the integration (Python). `manifest.json` carries the version.
 - `frontend/`: the cards (TypeScript, Lit, esbuild, vitest). The built bundle is **committed** at `custom_components/piyolog/frontend/piyolog-card.js` so HACS users need no build.
+- `custom_components/piyolog/brand/`: `icon.png` (256x256) and `icon@2x.png` (512x512), the integration's own icon (Home Assistant 2026.3 or newer reads it from here). It is an original design: never use PiyoLog's logo or Home Assistant's own branded images.
 - `frontend/harness/`: a mock `hass` for looking at the cards without Home Assistant.
-- `docs/images/`: README screenshots, `<card>-<light|dark>-<en|ja>.png`.
+- `docs/images/`: README screenshots, `<card>-light-<en|ja>.png`, with a transparent background.
 - `README.md` and `README.ja.md` are kept in step. `CHANGELOG.md` is written by hand.
 
 ## Checks before a PR
@@ -47,7 +48,7 @@ The harness fixes the clock at 14:30 JST on 2026-11-09, so screenshots are repea
 .venv/bin/python .claude/skills/ha-piyolog-workflow/scripts/screenshots.py /tmp/out list   # one card, elsewhere
 ```
 
-The script starts the server, takes headless Chrome shots at 2x (light and dark, English and Japanese) and crops them. It needs Pillow (`pip install pillow`) and Chrome (set `CHROME` if it is not at the macOS default path). Re-run it whenever a card's look changes, then check a few images by eye. README images are `<picture>` elements: the dark image is used under a dark theme.
+The script starts the server, takes headless Chrome shots at 2x (English and Japanese) on a transparent background and crops them to the card. It needs Pillow (`pip install pillow`) and Chrome (set `CHROME` if it is not at the macOS default path). Re-run it whenever a card's look changes, then check a few images by eye. The README uses one image per card in a plain `<img>` tag, because HACS does not render `<picture>` (it shows the tag as text). The transparent background lets the light card sit on light and dark pages.
 
 When a PR changes how a card looks, attach screenshots with `gh pr create --body-file <file> --attach <image>`. The body refers to them as `![text](./image.png)`.
 

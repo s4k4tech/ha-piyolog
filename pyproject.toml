@@ -1,6 +1,6 @@
 [project]
 name = "ha-piyolog"
-version = "0.3.2"
+version = "0.4.0"
 description = "Home Assistant integration and dashboard cards for PiyoLog data feeds"
 readme = "README.md"
 license = { text = "MIT" }
