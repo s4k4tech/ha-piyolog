@@ -4,7 +4,7 @@ Home Assistant integration and dashboard cards for [PiyoLog](https://www.piyolog
 
 > **Unofficial project.** This project is not affiliated with, endorsed by, or sponsored by PiyoLog.
 
-> **Status:** work in progress. The integration (sensors) works; the dashboard cards are not released yet.
+> **Status:** work in progress. Not released yet.
 
 ## What it does
 
@@ -66,6 +66,28 @@ PiyoLog does not provide sleep durations. A sleep interval is counted only when 
 
 Only `Formula` records. Expressed breast milk, pumping and drinks are not included.
 
+## Dashboard cards
+
+The integration serves its cards itself, so no dashboard resource has to be added. After installing, reload the browser tab once.
+
+Add a card from the dashboard editor (search for "PiyoLog"), or in YAML:
+
+```yaml
+type: custom:piyolog-summary-card
+device_id: <device id>   # pick it in the visual editor
+name: Haru               # optional, defaults to the device name
+```
+
+| Card | Shows |
+|---|---|
+| `custom:piyolog-summary-card` | Time since the last formula, breastfeeding, pee and poop, today's totals, and the last sleep record |
+| `custom:piyolog-timeline-card` | Sleep, feeding and diaper records across today, plus the latest records |
+| `custom:piyolog-compact-card` | One line for formula (`kind: formula`, default) or sleep (`kind: sleep`) |
+
+If there is only one PiyoLog device, `device_id` can be left out.
+
+Time since a record ("2h 15m ago") is calculated in the browser from the record's time. Sleep is shown as the last Sleep or WakeUp record, for example "Bedtime 13:58 · 32m". The cards never say that a child is asleep.
+
 ## Limitations
 
 - PiyoLog caches feeds for about 1 to 15 minutes, so new records can appear with a delay.
@@ -90,6 +112,19 @@ python3.13 -m venv .venv
 .venv/bin/ruff check . && .venv/bin/ruff format --check .
 .venv/bin/pytest
 ```
+
+### Cards
+
+The cards are written in TypeScript with Lit and live in `frontend/`. The built bundle is committed to `custom_components/piyolog/frontend/` so that HACS users do not need to build anything.
+
+```bash
+cd frontend
+npm ci
+npm run typecheck && npm test
+npm run build   # rewrites the bundle; commit the result
+```
+
+To look at the cards without Home Assistant, serve the repository root (for example `python3 -m http.server`) and open `frontend/harness/index.html`. It uses a mock `hass` and a fixed clock.
 
 ## License
 
