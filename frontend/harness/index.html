@@ -61,7 +61,19 @@
     el.hass = hass;
     return el;
   };
-  if (params.get("custom") === "1") {
+  if (params.get("list") === "1") {
+    // Mimics a sections row: 3 columns wide (235px), 3 rows high (184px).
+    document.body.style.cssText = "margin:0;padding:16px;background:var(--bg)";
+    grid.style.cssText = "display:flex;gap:8px;align-items:stretch;flex-wrap:wrap";
+    for (const config of [{}, { items: ["breastfeeding", "pee", "poop", "sleep", "today_formula"] }]) {
+      const cell = document.createElement("div");
+      cell.style.cssText = "width:235px;" + (Object.keys(config).length ? "min-height:240px" : "height:184px");
+      const el = mk("piyolog-list-card", { device_id: "dev1", ...config });
+      el.style.height = "100%";
+      cell.append(el);
+      grid.append(cell);
+    }
+  } else if (params.get("custom") === "1") {
     const a = document.createElement("div"); a.className = "col";
     const b = document.createElement("div"); b.className = "col";
     a.append(

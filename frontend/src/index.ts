@@ -1,4 +1,5 @@
 import { PiyologCompactCard } from "./cards/compact-card";
+import { PiyologListCard } from "./cards/list-card";
 import { PiyologSummaryCard } from "./cards/summary-card";
 import { PiyologTimelineCard } from "./cards/timeline-card";
 import { PiyologCardEditor } from "./editor";
@@ -15,6 +16,12 @@ const CARDS = [
     ctor: PiyologTimelineCard,
     name: "PiyoLog timeline",
     description: "Sleep, feeding and diaper records across today.",
+  },
+  {
+    tag: "piyolog-list-card",
+    ctor: PiyologListCard,
+    name: "PiyoLog list",
+    description: "A narrow card listing the latest records, sized for the sections view.",
   },
   {
     tag: "piyolog-compact-card",

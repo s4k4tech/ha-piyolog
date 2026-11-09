@@ -1,6 +1,6 @@
 import { LitElement, html, nothing } from "lit";
 import { langOf, strings } from "./i18n";
-import { COMPACT_QUICK, SUMMARY_TILES, SUMMARY_TOTALS, TIMELINE_ROWS } from "./items";
+import { COMPACT_QUICK, LIST_DEFAULT, LIST_ITEMS, SUMMARY_TILES, SUMMARY_TOTALS, TIMELINE_ROWS } from "./items";
 import type { HomeAssistant, PiyologCardConfig } from "./types";
 
 interface SchemaItem {
@@ -74,6 +74,21 @@ export class PiyologCardEditor extends LitElement {
         { name: "legend", selector: { boolean: {} } },
         { name: "log", selector: { boolean: {} } },
       );
+    } else if (type.endsWith("piyolog-list-card")) {
+      items.push({
+        name: "items",
+        selector: this.multi(LIST_ITEMS, {
+          breastfeeding: s.breastfeeding,
+          pee: s.lastPee,
+          poop: s.lastPoop,
+          sleep: s.sleepConfirmed,
+          formula: s.formula,
+          today_formula: s.todayFormula,
+          today_breastfeeding: s.todayBreastfeeding,
+          today_diapers: s.todayDiapers,
+          today_sleep: s.todaySleep,
+        }),
+      });
     } else if (type.endsWith("piyolog-compact-card")) {
       items.push({
         name: "kind",
@@ -110,6 +125,7 @@ export class PiyologCardEditor extends LitElement {
       legend: true,
       log: true,
       quick: [...COMPACT_QUICK],
+      items: [...LIST_DEFAULT],
       ...this._config,
     };
   }
@@ -126,6 +142,7 @@ export class PiyologCardEditor extends LitElement {
       legend: s.editorLegend,
       log: s.editorLog,
       quick: s.editorQuick,
+      items: s.editorItems,
     };
     return labels[item.name] ?? item.name;
   };

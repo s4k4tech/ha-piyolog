@@ -68,6 +68,7 @@ name: はる                 # 省略可
 |---|---|
 | `custom:piyolog-summary-card` | ミルク・母乳・おしっこ・うんちからの経過時間、今日の合計、最後の睡眠記録 |
 | `custom:piyolog-timeline-card` | 今日の睡眠・授乳・おむつの記録の時系列 |
+| `custom:piyolog-list-card` | 最新の記録を 1 行ずつ並べる幅の狭いカード（初期表示は授乳・おしっこ・うんち・睡眠）。セクション表示で幅 3 列、高さ 3 行 |
 | `custom:piyolog-compact-card` | ミルク（`kind: formula`）または睡眠（`kind: sleep`）の 1 行表示 |
 
 ### 表示項目の選択
@@ -80,6 +81,7 @@ name: はる                 # 省略可
 | summary | `totals` | `formula`, `breastfeeding`, `diapers`, `sleep` |
 | timeline | `rows` | `sleep`, `milk`, `diaper` |
 | timeline | `legend`, `log` | `true` / `false`（凡例、最近の記録） |
+| list | `items` | `breastfeeding`, `pee`, `poop`, `sleep`, `formula`, `today_formula`, `today_breastfeeding`, `today_diapers`, `today_sleep` |
 | compact（`kind: formula`） | `quick` | `breastfeeding`, `diapers`, `poop_since` |
 
 ```yaml

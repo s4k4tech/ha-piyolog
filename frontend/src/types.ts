@@ -39,6 +39,7 @@ export interface PiyologCardConfig {
   legend?: boolean;
   log?: boolean;
   quick?: string[];
+  items?: string[];
 }
 
 export type Lang = "ja" | "en";

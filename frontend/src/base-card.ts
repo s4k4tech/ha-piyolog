@@ -1,4 +1,4 @@
-import { LitElement, html, nothing, type TemplateResult } from "lit";
+import { LitElement, html, nothing, type CSSResultGroup, type TemplateResult } from "lit";
 import { buildData, findPiyologDevices, type PiyologData } from "./data";
 import { formatClock, formatDuration } from "./format";
 import { langOf, strings, type Strings } from "./i18n";
@@ -19,7 +19,7 @@ export abstract class PiyologBaseCard extends LitElement {
     _config: { state: true },
     _now: { state: true },
   };
-  static override styles = cardStyles;
+  static override styles: CSSResultGroup = cardStyles;
 
   declare hass?: HomeAssistant;
   declare _config?: PiyologCardConfig;
