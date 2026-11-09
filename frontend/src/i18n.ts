@@ -35,6 +35,12 @@ export interface Strings {
   editorDevice: string;
   editorName: string;
   editorKind: string;
+  editorTiles: string;
+  editorTotals: string;
+  editorRows: string;
+  editorLegend: string;
+  editorLog: string;
+  editorQuick: string;
   kindFormula: string;
   kindSleep: string;
   sleepStartedAt: string;
@@ -81,6 +87,12 @@ const ja: Strings = {
   editorDevice: "デバイス",
   editorName: "名前（省略するとデバイス名）",
   editorKind: "表示内容",
+  editorTiles: "最後の記録（並び順どおりに表示）",
+  editorTotals: "今日の合計（並び順どおりに表示）",
+  editorRows: "タイムラインの行（並び順どおりに表示）",
+  editorLegend: "凡例を表示",
+  editorLog: "最近の記録を表示",
+  editorQuick: "下段の項目（並び順どおりに表示）",
   kindFormula: "ミルク",
   kindSleep: "睡眠",
   sleepStartedAt: "就寝",
@@ -155,6 +167,12 @@ const en: Strings = {
   editorDevice: "Device",
   editorName: "Name (defaults to the device name)",
   editorKind: "Show",
+  editorTiles: "Last records (shown in this order)",
+  editorTotals: "Today's totals (shown in this order)",
+  editorRows: "Timeline rows (shown in this order)",
+  editorLegend: "Show legend",
+  editorLog: "Show recent records",
+  editorQuick: "Bottom items (shown in this order)",
   kindFormula: "Formula",
   kindSleep: "Sleep",
   sleepStartedAt: "Bedtime",

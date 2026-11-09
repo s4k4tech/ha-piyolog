@@ -1,10 +1,17 @@
 import { html, type TemplateResult } from "lit";
 import { PiyologBaseCard, emphasizeNumbers } from "../base-card";
 import type { PiyologData } from "../data";
+import { COMPACT_QUICK, pickItems } from "../items";
+import type { PiyologCardConfig } from "../types";
 import { formatDuration, formatElapsed } from "../format";
 
 export class PiyologCompactCard extends PiyologBaseCard {
   protected override compactCard = true;
+
+  override setConfig(config: PiyologCardConfig): void {
+    pickItems(config.quick, COMPACT_QUICK, "quick");
+    super.setConfig(config);
+  }
 
   private icon(name: string, color: string): TemplateResult {
     return html`<div class="ico" style="background:color-mix(in srgb, var(${color}) 18%, transparent)">
@@ -17,6 +24,12 @@ export class PiyologCompactCard extends PiyologBaseCard {
     const f = data.formula;
     const sub = f ? [this.clock(f.time), f.ml !== undefined ? `${f.ml}ml` : undefined].filter(Boolean).join(" · ") : "";
     const sinceDiaper = data.poop ? formatDuration(this._now - data.poop.time.getTime(), this.uiLang) : "–";
+    const quickOf = {
+      breastfeeding: html`<div><span class="v">${data.today.breastfeedings ?? "–"}</span>${s.breastfeeding}</div>`,
+      diapers: html`<div><span class="v">${data.today.diapers ?? "–"}</span>${s.diapers}</div>`,
+      poop_since: html`<div><span class="v">${sinceDiaper}</span>${s.poopSince}</div>`,
+    };
+    const quick = pickItems(this._config?.quick, COMPACT_QUICK, "quick");
     return html`
       <div class="line">
         ${this.icon("mdi:baby-bottle-outline", "--piyolog-milk")}
@@ -32,11 +45,7 @@ export class PiyologCompactCard extends PiyologBaseCard {
             </div>`
           : ""}
       </div>
-      <div class="quick">
-        <div><span class="v">${data.today.breastfeedings ?? "–"}</span>${s.breastfeeding}</div>
-        <div><span class="v">${data.today.diapers ?? "–"}</span>${s.diapers}</div>
-        <div><span class="v">${sinceDiaper}</span>${s.poopSince}</div>
-      </div>
+      ${quick.length ? html`<div class="quick">${quick.map((id) => quickOf[id])}</div>` : ""}
     `;
   }
 
@@ -71,7 +80,8 @@ export class PiyologCompactCard extends PiyologBaseCard {
   }
 
   override getCardSize(): number {
-    return this._config?.kind === "sleep" ? 1 : 2;
+    if (this._config?.kind === "sleep") return 1;
+    return pickItems(this._config?.quick, COMPACT_QUICK, "quick").length ? 2 : 1;
   }
 
   static getConfigElement(): HTMLElement {

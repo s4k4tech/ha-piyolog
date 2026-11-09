@@ -70,6 +70,26 @@ name: はる                 # 省略可
 | `custom:piyolog-timeline-card` | 今日の睡眠・授乳・おむつの記録の時系列 |
 | `custom:piyolog-compact-card` | ミルク（`kind: formula`）または睡眠（`kind: sleep`）の 1 行表示 |
 
+### 表示項目の選択
+
+下のリストは、書いた順に表示されます。省略するとすべて表示、`[]` にするとその部分を非表示にします。ビジュアルエディタでも同じ選択ができ、並べ替えもできます。
+
+| カード | オプション | 項目 |
+|---|---|---|
+| summary | `tiles` | `formula`, `breastfeeding`, `pee`, `poop` |
+| summary | `totals` | `formula`, `breastfeeding`, `diapers`, `sleep` |
+| timeline | `rows` | `sleep`, `milk`, `diaper` |
+| timeline | `legend`, `log` | `true` / `false`（凡例、最近の記録） |
+| compact（`kind: formula`） | `quick` | `breastfeeding`, `diapers`, `poop_since` |
+
+```yaml
+type: custom:piyolog-summary-card
+tiles: [poop, pee, formula]
+totals: [formula, sleep]
+```
+
+存在しない項目名を書くと、カードに設定エラーが表示されます。
+
 ## 制限
 
 - ぴよログはフィードを 1〜15 分キャッシュするため、記録の反映が遅れることがあります。
