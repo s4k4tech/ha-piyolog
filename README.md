@@ -4,7 +4,7 @@ Home Assistant integration and dashboard cards for [PiyoLog](https://www.piyolog
 
 > **Unofficial project.** This project is not affiliated with, endorsed by, or sponsored by PiyoLog.
 
-> **Status:** work in progress. Not released yet.
+English | [日本語](README.ja.md)
 
 ## What it does
 
@@ -87,6 +87,31 @@ name: Haru               # optional, defaults to the device name
 If there is only one PiyoLog device, `device_id` can be left out.
 
 Time since a record ("2h 15m ago") is calculated in the browser from the record's time. Sleep is shown as the last Sleep or WakeUp record, for example "Bedtime 13:58 · 32m". The cards never say that a child is asleep.
+
+## Automation example
+
+Notify when no formula was recorded for 4 hours (a plain elapsed-time check, not a prediction):
+
+```yaml
+triggers:
+  - trigger: template
+    value_template: >
+      {{ (now() - states('sensor.haru_last_formula') | as_datetime).total_seconds() > 4 * 3600 }}
+actions:
+  - action: notify.notify
+    data:
+      message: No formula has been recorded for 4 hours.
+```
+
+Replace `sensor.haru_last_formula` with your entity ID.
+
+## Troubleshooting
+
+- **Cards do not appear:** reload the browser tab (hard reload) after installing or updating.
+- **"Feed not found" in setup:** check the URL is complete and the feed has not been revoked in PiyoLog.
+- **Values look old:** PiyoLog caches feeds for 1 to 15 minutes. See Limitations.
+- **Reauthentication request:** the feed returned 404 repeatedly. Create a new feed and enter its URL.
+- **Sharing logs:** make sure they do not contain a feed URL. The integration does not log it.
 
 ## Limitations
 
