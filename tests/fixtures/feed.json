@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-09T05:30:00Z",
+  "range": { "from": "2026-11-08T05:30:00Z", "to": "2026-11-09T05:30:00Z" },
+  "records": [
+    { "event_id": "e3", "datetime": "2026-11-09T03:15:00Z", "type": "Formula", "value": { "value": 140, "unit": "ml" } },
+    { "event_id": "e1", "datetime": "2026-11-08T20:00:00Z", "type": "BreastFeeding", "last": "right", "leftTime": 480, "rightTime": 360, "memo": "ok" },
+    { "event_id": "e2", "datetime": "2026-11-09T01:00:00Z", "type": "Poop", "details": { "hardness": "normal", "color": "yellow" } },
+    { "event_id": "e4", "datetime": "2026-11-09T04:58:00Z", "type": "Sleep" },
+    { "event_id": "e5", "datetime": "2026-11-09T05:00:00Z", "type": "SomethingNew", "extra": 1 }
+  ]
+}
