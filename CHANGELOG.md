@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+- Add `piyolog-list-card`, a narrow card that lists the latest records. It shows the last breastfeeding, pee, poop and sleep by default, and fits 3 columns by 3 rows in the sections view. Items are selectable and reorderable (`items`).
+
 ## 0.2.0
 
 - Choose and reorder the items each card shows (`tiles`, `totals`, `rows`, `legend`, `log`, `quick`), also in the visual editor.
