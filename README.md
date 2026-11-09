@@ -86,6 +86,26 @@ name: Haru               # optional, defaults to the device name
 
 If there is only one PiyoLog device, `device_id` can be left out.
 
+### Choosing what to show
+
+Every list below is shown in the order you write it. Leave an option out to show everything, or use `[]` to hide that part. The visual editor offers the same choices with drag-to-reorder.
+
+| Card | Option | Items |
+|---|---|---|
+| summary | `tiles` | `formula`, `breastfeeding`, `pee`, `poop` |
+| summary | `totals` | `formula`, `breastfeeding`, `diapers`, `sleep` |
+| timeline | `rows` | `sleep`, `milk`, `diaper` |
+| timeline | `legend`, `log` | `true` / `false` (legend and recent records) |
+| compact (`kind: formula`) | `quick` | `breastfeeding`, `diapers`, `poop_since` |
+
+```yaml
+type: custom:piyolog-summary-card
+tiles: [poop, pee, formula]
+totals: [formula, sleep]
+```
+
+An unknown item name shows a configuration error on the card.
+
 Time since a record ("2h 15m ago") is calculated in the browser from the record's time. Sleep is shown as the last Sleep or WakeUp record, for example "Bedtime 13:58 · 32m". The cards never say that a child is asleep.
 
 ## Automation example

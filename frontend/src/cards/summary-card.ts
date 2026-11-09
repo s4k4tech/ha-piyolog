@@ -1,6 +1,8 @@
 import { html, type TemplateResult } from "lit";
 import { PiyologBaseCard, emphasizeNumbers } from "../base-card";
 import type { PiyologData } from "../data";
+import type { PiyologCardConfig } from "../types";
+import { SUMMARY_TILES, SUMMARY_TOTALS, pickItems } from "../items";
 import { formatDuration, formatElapsed, formatSides } from "../format";
 
 export class PiyologSummaryCard extends PiyologBaseCard {
@@ -25,6 +27,12 @@ export class PiyologSummaryCard extends PiyologBaseCard {
     </div>`;
   }
 
+  override setConfig(config: PiyologCardConfig): void {
+    pickItems(config.tiles, SUMMARY_TILES, "tiles");
+    pickItems(config.totals, SUMMARY_TOTALS, "totals");
+    super.setConfig(config);
+  }
+
   private count(value: number | undefined, unit = ""): TemplateResult {
     return value === undefined
       ? html`<span class="v">–</span>`
@@ -44,6 +52,30 @@ export class PiyologSummaryCard extends PiyologBaseCard {
       : undefined;
     const sleepSeconds = data.today.sleepSeconds;
 
+    const tileOf = {
+      formula: this.tile(
+        s.lastFormula,
+        "--piyolog-milk",
+        data.formula?.time,
+        data.formula?.ml !== undefined ? `${data.formula.ml}ml` : undefined,
+      ),
+      breastfeeding: this.tile(s.lastBreastfeeding, "--piyolog-milk", data.breastfeeding?.time, feedingDetail),
+      pee: this.tile(s.lastPee, "--piyolog-pee", data.pee?.time, undefined),
+      poop: this.tile(s.lastPoop, "--piyolog-poop", data.poop?.time, poopDetail || undefined),
+    };
+    const totalOf = {
+      formula: html`<div>${this.count(data.today.formulaMl, "ml")}<span class="k">${s.formula}</span></div>`,
+      breastfeeding: html`<div>${this.count(data.today.breastfeedings)}<span class="k">${s.breastfeeding}</span></div>`,
+      diapers: html`<div>${this.count(data.today.diapers)}<span class="k">${s.diapers}</span></div>`,
+      sleep: html`<div>
+        <span class="v"
+          >${sleepSeconds === undefined ? "–" : emphasizeNumbers(formatDuration(sleepSeconds * 1000, this.uiLang))}</span
+        ><span class="k">${s.sleepConfirmed}</span>
+      </div>`,
+    };
+    const tiles = pickItems(this._config?.tiles, SUMMARY_TILES, "tiles");
+    const totals = pickItems(this._config?.totals, SUMMARY_TOTALS, "totals");
+
     return html`
       <div class="head">
         <div style="min-width:0">
@@ -52,27 +84,8 @@ export class PiyologSummaryCard extends PiyologBaseCard {
         </div>
         ${this.renderSleepPill(data)}
       </div>
-      <div class="tiles">
-        ${this.tile(
-          s.lastFormula,
-          "--piyolog-milk",
-          data.formula?.time,
-          data.formula?.ml !== undefined ? `${data.formula.ml}ml` : undefined,
-        )}
-        ${this.tile(s.lastBreastfeeding, "--piyolog-milk", data.breastfeeding?.time, feedingDetail)}
-        ${this.tile(s.lastPee, "--piyolog-pee", data.pee?.time, undefined)}
-        ${this.tile(s.lastPoop, "--piyolog-poop", data.poop?.time, poopDetail || undefined)}
-      </div>
-      <div class="today">
-        <div>${this.count(data.today.formulaMl, "ml")}<span class="k">${s.formula}</span></div>
-        <div>${this.count(data.today.breastfeedings)}<span class="k">${s.breastfeeding}</span></div>
-        <div>${this.count(data.today.diapers)}<span class="k">${s.diapers}</span></div>
-        <div>
-          <span class="v"
-            >${sleepSeconds === undefined ? "–" : emphasizeNumbers(formatDuration(sleepSeconds * 1000, this.uiLang))}</span
-          ><span class="k">${s.sleepConfirmed}</span>
-        </div>
-      </div>
+      ${tiles.length ? html`<div class="tiles">${tiles.map((id) => tileOf[id])}</div>` : ""}
+      ${totals.length ? html`<div class="today">${totals.map((id) => totalOf[id])}</div>` : ""}
     `;
   }
 

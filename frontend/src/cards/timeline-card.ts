@@ -1,12 +1,19 @@
 import { html, type TemplateResult } from "lit";
 import { PiyologBaseCard } from "../base-card";
 import type { PiyologData, TimelineRecord } from "../data";
+import { TIMELINE_ROWS, pickItems } from "../items";
+import type { PiyologCardConfig } from "../types";
 import { layoutTimeline, type Mark } from "../timeline-layout";
 
 const TICK_HOURS = [0, 6, 12, 18, 24];
 const LOG_ITEMS = 4;
 
 export class PiyologTimelineCard extends PiyologBaseCard {
+  override setConfig(config: PiyologCardConfig): void {
+    pickItems(config.rows, TIMELINE_ROWS, "rows");
+    super.setConfig(config);
+  }
+
   private marks(marks: Mark[]): TemplateResult[] {
     return marks.map((m) => html`<div class="mark ${m.kind}" style="left:${m.left}%"></div>`);
   }
@@ -45,37 +52,55 @@ export class PiyologTimelineCard extends PiyologBaseCard {
 
     const recent = [...timeline.records].reverse().slice(0, LOG_ITEMS);
 
+    const rowOf = {
+      sleep: row(
+        s.sleepRow,
+        html`${layout.sleepBars.map(
+          (b) => html`<div class="bar" style="left:${b.left}%;width:${b.width}%"></div>`,
+        )}${layout.openSleepMark ? this.marks([layout.openSleepMark]) : ""}`,
+      ),
+      milk: row(s.milkRow, this.marks(layout.milkMarks)),
+      diaper: row(s.diaperRow, this.marks(layout.diaperMarks)),
+    };
+    const rows = pickItems(this._config?.rows, TIMELINE_ROWS, "rows");
+    const showLegend = this._config?.legend !== false;
+    const showLog = this._config?.log !== false;
+
     return html`
       ${header}
-      <div class="tl">
-        ${row(
-          s.sleepRow,
-          html`${layout.sleepBars.map(
-            (b) => html`<div class="bar" style="left:${b.left}%;width:${b.width}%"></div>`,
-          )}${layout.openSleepMark ? this.marks([layout.openSleepMark]) : ""}`,
-        )}
-        ${row(s.milkRow, this.marks(layout.milkMarks))} ${row(s.diaperRow, this.marks(layout.diaperMarks))}
-      </div>
-      <div class="axis">
-        <span></span>
-        <div class="ticks">${TICK_HOURS.map((h) => html`<span style="left:${(h / 24) * 100}%">${h}:00</span>`)}</div>
-      </div>
-      <div class="legend">
-        <span><i style="background:var(--piyolog-sleep)"></i>${s.legendSleep}</span>
-        <span><i style="border:2px solid var(--piyolog-sleep)"></i>${s.legendOpenSleep}</span>
-        <span><i style="background:var(--piyolog-milk)"></i>${s.legendMilk}</span>
-        <span><i style="background:var(--piyolog-pee)"></i>${s.legendPee}</span>
-        <span><i style="background:var(--piyolog-poop)"></i>${s.legendPoop}</span>
-      </div>
-      <div class="log">
-        ${recent.map(
-          (r) => html`<div class="item">
-            <span class="t">${this.clock(r.time)}</span>
-            <span>${s.types[r.type] ?? r.type}</span>
-            <span class="r">${this.recordDetail(r)}</span>
-          </div>`,
-        )}
-      </div>
+      ${rows.length ? html`<div class="tl">${rows.map((id) => rowOf[id])}</div>` : ""}
+      ${rows.length
+        ? html`<div class="axis">
+            <span></span>
+            <div class="ticks">${TICK_HOURS.map((h) => html`<span style="left:${(h / 24) * 100}%">${h}:00</span>`)}</div>
+          </div>`
+        : ""}
+      ${showLegend && rows.length
+        ? html`<div class="legend">
+            ${rows.includes("sleep")
+              ? html`<span><i style="background:var(--piyolog-sleep)"></i>${s.legendSleep}</span>
+                  <span><i style="border:2px solid var(--piyolog-sleep)"></i>${s.legendOpenSleep}</span>`
+              : ""}
+            ${rows.includes("milk")
+              ? html`<span><i style="background:var(--piyolog-milk)"></i>${s.legendMilk}</span>`
+              : ""}
+            ${rows.includes("diaper")
+              ? html`<span><i style="background:var(--piyolog-pee)"></i>${s.legendPee}</span>
+                  <span><i style="background:var(--piyolog-poop)"></i>${s.legendPoop}</span>`
+              : ""}
+          </div>`
+        : ""}
+      ${showLog
+        ? html`<div class="log">
+            ${recent.map(
+              (r) => html`<div class="item">
+                <span class="t">${this.clock(r.time)}</span>
+                <span>${s.types[r.type] ?? r.type}</span>
+                <span class="r">${this.recordDetail(r)}</span>
+              </div>`,
+            )}
+          </div>`
+        : ""}
     `;
   }
 

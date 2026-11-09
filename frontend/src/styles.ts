@@ -106,7 +106,8 @@ export const cardStyles = css`
   }
   .today {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
     border-top: 1px solid var(--piyolog-line);
     padding-top: 12px;
     text-align: center;
@@ -303,7 +304,8 @@ export const cardStyles = css`
   }
   .quick {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
     gap: 8px;
   }
   .quick > div {

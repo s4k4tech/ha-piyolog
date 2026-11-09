@@ -61,6 +61,21 @@
     el.hass = hass;
     return el;
   };
+  if (params.get("custom") === "1") {
+    const a = document.createElement("div"); a.className = "col";
+    const b = document.createElement("div"); b.className = "col";
+    a.append(
+      mk("piyolog-summary-card", { device_id: "dev1", tiles: ["poop", "pee", "formula"], totals: ["formula", "sleep"] }),
+      mk("piyolog-summary-card", { device_id: "dev1", tiles: [], totals: ["diapers", "breastfeeding", "formula"] }),
+    );
+    b.append(
+      mk("piyolog-timeline-card", { device_id: "dev1", rows: ["diaper", "sleep"], legend: false }),
+      mk("piyolog-timeline-card", { device_id: "dev1", rows: [], log: true }),
+      mk("piyolog-compact-card", { device_id: "dev1", kind: "formula", quick: ["poop_since", "diapers"] }),
+      mk("piyolog-compact-card", { device_id: "dev1", kind: "formula", quick: [] }),
+    );
+    grid.append(a, b);
+  } else {
   const left = document.createElement("div"); left.className = "col";
   const right = document.createElement("div"); right.className = "col";
   left.append(mk("piyolog-summary-card", { device_id: "dev1" }));
@@ -70,6 +85,7 @@
     mk("piyolog-compact-card", { device_id: "dev1", kind: "sleep" }),
   );
   grid.append(left, right);
+  }
 </script>
 </body>
 </html>

@@ -33,6 +33,12 @@ export interface PiyologCardConfig {
   device_id?: string;
   name?: string;
   kind?: CompactKind;
+  tiles?: string[];
+  totals?: string[];
+  rows?: string[];
+  legend?: boolean;
+  log?: boolean;
+  quick?: string[];
 }
 
 export type Lang = "ja" | "en";
