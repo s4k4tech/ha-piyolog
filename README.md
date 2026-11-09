@@ -1,20 +1,50 @@
 # ha-piyolog
 
-Home Assistant integration and dashboard cards for [PiyoLog](https://www.piyolog.com/) data feeds.
-
-> **Unofficial project.** This project is not affiliated with, endorsed by, or sponsored by PiyoLog.
+[![Release](https://img.shields.io/github/v/release/s4k4tech/ha-piyolog)](https://github.com/s4k4tech/ha-piyolog/releases)
+[![CI](https://github.com/s4k4tech/ha-piyolog/actions/workflows/ci.yml/badge.svg)](https://github.com/s4k4tech/ha-piyolog/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![HACS: Custom](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz)
 
 English | [日本語](README.ja.md)
 
-## What it does
+Home Assistant integration and dashboard cards for [PiyoLog](https://www.piyolog.com/) (a baby-care tracking app) data feeds.
+
+> **Unofficial project.** This project is not affiliated with, endorsed by, or sponsored by PiyoLog.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/summary-dark-en.png">
+  <img alt="The summary card" src="docs/images/summary-light-en.png" width="458">
+</picture>
+
+*The summary card, with sample data. The other cards are shown under [Dashboard cards](#dashboard-cards).*
+
+## Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Setup](#setup)
+- [Dashboard cards](#dashboard-cards)
+- [Entities](#entities)
+- [Automation example](#automation-example)
+- [Troubleshooting](#troubleshooting)
+- [Limitations](#limitations)
+- [Security and privacy](#security-and-privacy)
+- [Development](#development)
+
+## Features
 
 - Reads a PiyoLog [data feed](https://www.piyolog.com/app/piyolog/data_feed/en/index.html) and exposes the records as Home Assistant sensors.
-- Shows only what PiyoLog records and simple summaries of it (counts, totals, elapsed time). It does not predict or estimate anything, such as the next feeding time.
+- Shows the last formula, breastfeeding, pee, poop and sleep records at a glance, with the time since each.
+- Four card types: summary, list, timeline and compact. You choose which items each card shows and in what order.
+- Cards are served by the integration, so there is no dashboard resource to add.
+- Follows Home Assistant's light and dark themes, in English and Japanese.
+- Shows only what PiyoLog records and simple summaries of it (counts, totals, elapsed time). It does not predict or estimate anything, such as the next feeding time, and it never says that a child is asleep.
 
 ## Requirements
 
 - A PiyoLog account with permission to create data feeds (account administrator).
-- Home Assistant 2025.1 or newer.
+- Home Assistant 2025.4 or newer. The integration runs on Home Assistant 2026.10 and its automated tests run against 2025.4.
 - The free plan only offers a 24-hour feed. That is enough for this integration. Longer periods require PiyoLog Premium.
 
 ## Installation
@@ -34,8 +64,123 @@ Copy `custom_components/piyolog` into the `custom_components` folder of your Hom
 1. In PiyoLog, create a data feed and copy its URL.
 2. In Home Assistant, go to **Settings → Devices & services → Add integration → PiyoLog**.
 3. Enter the child's name and paste the feed URL. PiyoLog does not provide the name, so it is entered here.
+4. Reload the browser tab once, so Home Assistant picks up the cards.
 
 Add one entry per feed. The update interval (default 5 minutes, minimum 1 minute) can be changed in the integration's options.
+
+## Dashboard cards
+
+Add a card from the dashboard editor (search for "PiyoLog"), or in YAML. The visual editor lets you pick the device and reorder the items. The images below use sample data.
+
+Every card takes these options:
+
+```yaml
+type: custom:piyolog-summary-card   # the card type, see below
+device_id: <device id>              # pick it in the visual editor
+name: John                          # optional, defaults to the device name
+```
+
+If there is only one PiyoLog device, `device_id` can be left out.
+
+Time since a record ("2h 15m ago") is calculated in the browser from the record's time. Sleep is shown as the last Sleep or WakeUp record, for example "Bedtime 13:58 · 32m". The cards never say that a child is asleep.
+
+For the lists below: items are shown in the order you write them. Leave an option out to show everything, or use `[]` to hide that part. An unknown item name shows a configuration error on the card.
+
+### Summary card
+
+`custom:piyolog-summary-card`
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/summary-dark-en.png">
+  <img alt="The summary card" src="docs/images/summary-light-en.png" width="458">
+</picture>
+
+Time since the last formula, breastfeeding, pee and poop, today's totals, and the last sleep record.
+
+| Option | Items |
+|---|---|
+| `tiles` | `formula`, `breastfeeding`, `pee`, `poop` |
+| `totals` | `formula`, `breastfeeding`, `diapers`, `sleep` |
+
+```yaml
+type: custom:piyolog-summary-card
+tiles: [poop, pee, formula]
+totals: [formula, sleep]
+```
+
+### List card
+
+`custom:piyolog-list-card`
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/list-dark-en.png">
+  <img alt="The list card" src="docs/images/list-light-en.png" width="273">
+</picture>
+
+A narrow list with one line per record. It shows the last breastfeeding, pee, poop and sleep by default.
+
+| Option | Items |
+|---|---|
+| `items` | `breastfeeding`, `pee`, `poop`, `sleep`, `formula`, `today_formula`, `today_breastfeeding`, `today_diapers`, `today_sleep` (default: the first four) |
+
+In a sections dashboard the card is 3 columns wide and 3 rows high, which sits next to Home Assistant's own entities cards. It grows taller when you add more than four items. Home Assistant's `grid_options` override the size:
+
+```yaml
+type: custom:piyolog-list-card
+items: [breastfeeding, pee, poop, sleep]
+grid_options:
+  columns: 6
+```
+
+### Timeline card
+
+`custom:piyolog-timeline-card`
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/timeline-dark-en.png">
+  <img alt="The timeline card" src="docs/images/timeline-light-en.png" width="458">
+</picture>
+
+Sleep, feeding and diaper records across today, plus the latest records.
+
+| Option | Items |
+|---|---|
+| `rows` | `sleep`, `milk`, `diaper` |
+| `legend` | `true` / `false`: the legend |
+| `log` | `true` / `false`: the latest records |
+
+```yaml
+type: custom:piyolog-timeline-card
+rows: [diaper, sleep]
+legend: false
+```
+
+### Compact card
+
+`custom:piyolog-compact-card`
+
+One line for formula (`kind: formula`, the default) or sleep (`kind: sleep`).
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/compact-formula-dark-en.png">
+  <img alt="The compact card for formula" src="docs/images/compact-formula-light-en.png" width="458">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/compact-sleep-dark-en.png">
+  <img alt="The compact card for sleep" src="docs/images/compact-sleep-light-en.png" width="458">
+</picture>
+
+| Option | Items |
+|---|---|
+| `kind` | `formula` or `sleep` |
+| `quick` | `breastfeeding`, `diapers`, `poop_since` (for `kind: formula`) |
+
+```yaml
+type: custom:piyolog-compact-card
+kind: formula
+quick: [poop_since, diapers]
+```
 
 ## Entities
 
@@ -56,7 +201,7 @@ Each feed becomes one device with these sensors.
 | Timeline | Today's records, for use by the cards (diagnostic) |
 | Last updated | When PiyoLog generated the data (diagnostic) |
 
-Attributes that PiyoLog did not record are left out, never filled with zero.
+Attributes that PiyoLog did not record are left out, never filled with zero. Memos are never exposed.
 
 ### How sleep is calculated
 
@@ -66,50 +211,6 @@ PiyoLog does not provide sleep durations. A sleep interval is counted only when 
 
 Only `Formula` records. Expressed breast milk, pumping and drinks are not included.
 
-## Dashboard cards
-
-The integration serves its cards itself, so no dashboard resource has to be added. After installing, reload the browser tab once.
-
-Add a card from the dashboard editor (search for "PiyoLog"), or in YAML:
-
-```yaml
-type: custom:piyolog-summary-card
-device_id: <device id>   # pick it in the visual editor
-name: Haru               # optional, defaults to the device name
-```
-
-| Card | Shows |
-|---|---|
-| `custom:piyolog-summary-card` | Time since the last formula, breastfeeding, pee and poop, today's totals, and the last sleep record |
-| `custom:piyolog-timeline-card` | Sleep, feeding and diaper records across today, plus the latest records |
-| `custom:piyolog-list-card` | A narrow list of the latest records (last breastfeeding, pee, poop and sleep by default). Sized 3 columns wide and 3 rows high in the sections view |
-| `custom:piyolog-compact-card` | One line for formula (`kind: formula`, default) or sleep (`kind: sleep`) |
-
-If there is only one PiyoLog device, `device_id` can be left out.
-
-### Choosing what to show
-
-Every list below is shown in the order you write it. Leave an option out to show everything, or use `[]` to hide that part. The visual editor offers the same choices with drag-to-reorder.
-
-| Card | Option | Items |
-|---|---|---|
-| summary | `tiles` | `formula`, `breastfeeding`, `pee`, `poop` |
-| summary | `totals` | `formula`, `breastfeeding`, `diapers`, `sleep` |
-| timeline | `rows` | `sleep`, `milk`, `diaper` |
-| timeline | `legend`, `log` | `true` / `false` (legend and recent records) |
-| list | `items` | `breastfeeding`, `pee`, `poop`, `sleep`, `formula`, `today_formula`, `today_breastfeeding`, `today_diapers`, `today_sleep` |
-| compact (`kind: formula`) | `quick` | `breastfeeding`, `diapers`, `poop_since` |
-
-```yaml
-type: custom:piyolog-summary-card
-tiles: [poop, pee, formula]
-totals: [formula, sleep]
-```
-
-An unknown item name shows a configuration error on the card.
-
-Time since a record ("2h 15m ago") is calculated in the browser from the record's time. Sleep is shown as the last Sleep or WakeUp record, for example "Bedtime 13:58 · 32m". The cards never say that a child is asleep.
-
 ## Automation example
 
 Notify when no formula was recorded for 4 hours (a plain elapsed-time check, not a prediction):
@@ -118,20 +219,20 @@ Notify when no formula was recorded for 4 hours (a plain elapsed-time check, not
 triggers:
   - trigger: template
     value_template: >
-      {{ (now() - states('sensor.haru_last_formula') | as_datetime).total_seconds() > 4 * 3600 }}
+      {{ (now() - states('sensor.john_last_formula') | as_datetime).total_seconds() > 4 * 3600 }}
 actions:
   - action: notify.notify
     data:
       message: No formula has been recorded for 4 hours.
 ```
 
-Replace `sensor.haru_last_formula` with your entity ID.
+Replace `sensor.john_last_formula` with your entity ID.
 
 ## Troubleshooting
 
-- **Cards do not appear:** reload the browser tab (hard reload) after installing or updating.
+- **Cards do not appear, or "Custom element doesn't exist":** reload the browser tab (hard reload) after installing or updating. Wall-mounted tablets and kiosk apps such as Fully Kiosk Browser keep an old copy of the page, so clear their cache too.
 - **"Feed not found" in setup:** check the URL is complete and the feed has not been revoked in PiyoLog.
-- **Values look old:** PiyoLog caches feeds for 1 to 15 minutes. See Limitations.
+- **Values look old:** PiyoLog caches feeds for 1 to 15 minutes. See [Limitations](#limitations).
 - **Reauthentication request:** the feed returned 404 repeatedly. Create a new feed and enter its URL.
 - **Sharing logs:** make sure they do not contain a feed URL. The integration does not log it.
 
@@ -141,8 +242,9 @@ Replace `sensor.haru_last_formula` with your entity ID.
 - A feed is a snapshot. Deleted records may remain until the cache refreshes.
 - "Today" is based on the time zone configured in Home Assistant.
 - The 24-hour feed only contains the last 24 hours. Totals for "today" are always covered by it.
+- The integration only reads a feed. It does not write anything to PiyoLog.
 
-## Security
+## Security and privacy
 
 A feed URL contains a secret and works as a credential. Anyone who has it can read the feed.
 
@@ -150,6 +252,8 @@ A feed URL contains a secret and works as a credential. Anyone who has it can re
 - The integration stores it in the config entry, masks it in the setup form, and never logs it or includes it in diagnostics.
 - Home Assistant stores the URL unencrypted in its `.storage` folder, so be careful when sharing backups.
 - If the URL leaks, revoke the feed in PiyoLog and create a new one. Home Assistant will ask for the new URL.
+
+To report a vulnerability, see [SECURITY.md](SECURITY.md).
 
 ## Development
 
@@ -171,7 +275,9 @@ npm run typecheck && npm test
 npm run build   # rewrites the bundle; commit the result
 ```
 
-To look at the cards without Home Assistant, serve the repository root (for example `python3 -m http.server`) and open `frontend/harness/index.html`. It uses a mock `hass` and a fixed clock.
+To look at the cards without Home Assistant, serve the repository root (for example `python3 -m http.server`) and open `frontend/harness/index.html`. It uses a mock `hass` and a fixed clock. Useful query parameters: `?theme=dark`, `?lang=en`, `?list=1` (list card at its sections size), `?custom=1` (customised items) and `?card=summary` (one card on its own: `summary`, `list`, `timeline`, `compact-formula` or `compact-sleep`, as used for the screenshots).
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution rules and [CHANGELOG.md](CHANGELOG.md) for the release history.
 
 ## License
 
