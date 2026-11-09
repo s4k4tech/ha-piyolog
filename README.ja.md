@@ -2,18 +2,18 @@
 
 [![Release](https://img.shields.io/github/v/release/s4k4tech/ha-piyolog)](https://github.com/s4k4tech/ha-piyolog/releases)
 [![CI](https://github.com/s4k4tech/ha-piyolog/actions/workflows/ci.yml/badge.svg)](https://github.com/s4k4tech/ha-piyolog/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/s4k4tech/ha-piyolog/blob/main/LICENSE)
 [![HACS: Custom](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz)
 
-[English](README.md) | 日本語
+[English](https://github.com/s4k4tech/ha-piyolog/blob/main/README.md) | 日本語
 
 育児記録アプリ[ぴよログ](https://www.piyolog.com/)のデータフィードを読み込む、Home Assistant 用のインテグレーションとダッシュボードカードです。
 
 > **非公式プロジェクトです。** ぴよログとは無関係で、公認・提携を受けていません。
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/summary-dark-ja.png">
-  <img alt="サマリーカード" src="docs/images/summary-light-ja.png" width="458">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-dark-ja.png">
+  <img alt="サマリーカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-light-ja.png" width="458">
 </picture>
 
 *サマリーカードの表示例（サンプルデータ）。ほかのカードは[ダッシュボードカード](#ダッシュボードカード)にあります。*
@@ -91,8 +91,8 @@ PiyoLog のデバイスが 1 つだけなら、`device_id` は省略できます
 `custom:piyolog-summary-card`
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/summary-dark-ja.png">
-  <img alt="サマリーカード" src="docs/images/summary-light-ja.png" width="458">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-dark-ja.png">
+  <img alt="サマリーカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-light-ja.png" width="458">
 </picture>
 
 ミルク・授乳・おしっこ・うんちからの経過時間、今日の合計、最後の睡眠記録を表示します。
@@ -113,8 +113,8 @@ totals: [formula, sleep]
 `custom:piyolog-list-card`
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/list-dark-ja.png">
-  <img alt="リストカード" src="docs/images/list-light-ja.png" width="273">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/list-dark-ja.png">
+  <img alt="リストカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/list-light-ja.png" width="273">
 </picture>
 
 最新の記録を 1 行ずつ並べる、幅の狭いカードです。初期表示は、授乳・おしっこ・うんち・睡眠です。
@@ -137,8 +137,8 @@ grid_options:
 `custom:piyolog-timeline-card`
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/timeline-dark-ja.png">
-  <img alt="タイムラインカード" src="docs/images/timeline-light-ja.png" width="458">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/timeline-dark-ja.png">
+  <img alt="タイムラインカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/timeline-light-ja.png" width="458">
 </picture>
 
 今日の睡眠・授乳・おむつの記録の時系列と、最新の記録を表示します。
@@ -162,13 +162,13 @@ legend: false
 ミルク（`kind: formula`、初期値）または睡眠（`kind: sleep`）を 1 行で表示します。
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/compact-formula-dark-ja.png">
-  <img alt="ミルクのコンパクトカード" src="docs/images/compact-formula-light-ja.png" width="458">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-formula-dark-ja.png">
+  <img alt="ミルクのコンパクトカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-formula-light-ja.png" width="458">
 </picture>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/compact-sleep-dark-ja.png">
-  <img alt="睡眠のコンパクトカード" src="docs/images/compact-sleep-light-ja.png" width="458">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-sleep-dark-ja.png">
+  <img alt="睡眠のコンパクトカード" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-sleep-light-ja.png" width="458">
 </picture>
 
 | オプション | 項目 |
@@ -253,7 +253,7 @@ actions:
 - Home Assistant は URL を `.storage` に暗号化せずに保存します。バックアップの扱いに注意してください。
 - 漏れたときは、ぴよログでフィードを無効にして作り直してください。Home Assistant が新しい URL を求めます。
 
-脆弱性の報告は [SECURITY.md](SECURITY.md) を参照してください。
+脆弱性の報告は [SECURITY.md](https://github.com/s4k4tech/ha-piyolog/blob/main/SECURITY.md) を参照してください。
 
 ## 開発
 
@@ -277,8 +277,8 @@ npm run build   # バンドルを書き換えます。結果をコミットし�
 
 Home Assistant なしでカードを見るには、リポジトリのルートを配信し（例: `python3 -m http.server`）、`frontend/harness/index.html` を開きます。モックの `hass` と固定の時計を使います。クエリパラメータは `?theme=dark`、`?lang=en`、`?list=1`（セクション表示の大きさのリストカード）、`?custom=1`（項目を変えた例）、`?card=summary`（カード 1 枚だけを表示。`summary`、`list`、`timeline`、`compact-formula`、`compact-sleep`。スクリーンショットに使っています）です。
 
-貢献のルールは [CONTRIBUTING.md](CONTRIBUTING.md)、リリース履歴は [CHANGELOG.md](CHANGELOG.md) を参照してください。
+貢献のルールは [CONTRIBUTING.md](https://github.com/s4k4tech/ha-piyolog/blob/main/CONTRIBUTING.md)、リリース履歴は [CHANGELOG.md](https://github.com/s4k4tech/ha-piyolog/blob/main/CHANGELOG.md) を参照してください。
 
 ## ライセンス
 
-[MIT](LICENSE)
+[MIT](https://github.com/s4k4tech/ha-piyolog/blob/main/LICENSE)
