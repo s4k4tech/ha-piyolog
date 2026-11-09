@@ -1,0 +1,66 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add a PiyoLog feed",
+        "description": "Paste the data feed URL issued in PiyoLog. The URL contains a secret, so keep it private.",
+        "data": {
+          "name": "Child's name",
+          "url": "Feed URL"
+        },
+        "data_description": {
+          "name": "Shown on the device and cards. PiyoLog does not provide it.",
+          "url": "https://feed.piyolog.com/v1/feed/..."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Feed URL is no longer valid",
+        "description": "The feed was revoked, expired or suspended. Paste a new feed URL.",
+        "data": {
+          "url": "Feed URL"
+        }
+      }
+    },
+    "error": {
+      "invalid_url": "This is not a PiyoLog feed URL.",
+      "feed_unavailable": "The feed is unavailable. Check that the URL is correct and not expired or revoked.",
+      "response_too_large": "The feed is too large. Issue a feed with a shorter period.",
+      "cannot_connect": "Could not reach PiyoLog. Try again later.",
+      "invalid_response": "PiyoLog returned a response this integration cannot read.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This feed is already configured.",
+      "reauth_successful": "The feed URL was updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "PiyoLog options",
+        "data": {
+          "scan_interval": "Update interval (seconds)"
+        },
+        "data_description": {
+          "scan_interval": "PiyoLog caches feeds for 1 to 15 minutes, so shorter intervals rarely help."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "last_formula": { "name": "Last formula" },
+      "last_breastfeeding": { "name": "Last breastfeeding" },
+      "last_pee": { "name": "Last pee" },
+      "last_poop": { "name": "Last poop" },
+      "last_sleep": { "name": "Last sleep record" },
+      "last_wake_up": { "name": "Last wake-up record" },
+      "formula_today": { "name": "Formula today" },
+      "breastfeeding_count_today": { "name": "Breastfeedings today" },
+      "diaper_count_today": { "name": "Diaper changes today" },
+      "sleep_today": { "name": "Sleep today" },
+      "timeline": { "name": "Timeline" },
+      "last_updated": { "name": "Last updated" }
+    }
+  }
+}

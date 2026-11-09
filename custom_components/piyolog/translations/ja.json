@@ -1,0 +1,66 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "ピヨログのフィードを追加",
+        "description": "ピヨログで発行したデータフィードの URL を貼り付けてください。URL には秘密の情報が含まれるので、他人に見せないでください。",
+        "data": {
+          "name": "子どもの名前",
+          "url": "フィード URL"
+        },
+        "data_description": {
+          "name": "デバイスとカードに表示されます。ピヨログからは取得できません。",
+          "url": "https://feed.piyolog.com/v1/feed/..."
+        }
+      },
+      "reauth_confirm": {
+        "title": "フィード URL が使えなくなりました",
+        "description": "フィードが失効、期限切れ、または停止されています。新しいフィード URL を貼り付けてください。",
+        "data": {
+          "url": "フィード URL"
+        }
+      }
+    },
+    "error": {
+      "invalid_url": "ピヨログのフィード URL ではありません。",
+      "feed_unavailable": "フィードを利用できません。URL が正しいこと、期限切れや失効でないことを確認してください。",
+      "response_too_large": "フィードが大きすぎます。期間の短いフィードを発行してください。",
+      "cannot_connect": "ピヨログに接続できません。しばらくしてからもう一度お試しください。",
+      "invalid_response": "ピヨログの応答をこの連携では読み取れません。",
+      "unknown": "予期しないエラーが発生しました。"
+    },
+    "abort": {
+      "already_configured": "このフィードはすでに設定されています。",
+      "reauth_successful": "フィード URL を更新しました。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ピヨログの設定",
+        "data": {
+          "scan_interval": "更新間隔（秒）"
+        },
+        "data_description": {
+          "scan_interval": "ピヨログ側で 1〜15 分キャッシュされるため、短くしても効果は限られます。"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "last_formula": { "name": "最後のミルク" },
+      "last_breastfeeding": { "name": "最後の授乳" },
+      "last_pee": { "name": "最後のおしっこ" },
+      "last_poop": { "name": "最後のうんち" },
+      "last_sleep": { "name": "最後の就寝記録" },
+      "last_wake_up": { "name": "最後の起床記録" },
+      "formula_today": { "name": "今日のミルク量" },
+      "breastfeeding_count_today": { "name": "今日の授乳回数" },
+      "diaper_count_today": { "name": "今日のおむつ回数" },
+      "sleep_today": { "name": "今日の睡眠時間" },
+      "timeline": { "name": "タイムライン" },
+      "last_updated": { "name": "最終更新" }
+    }
+  }
+}
