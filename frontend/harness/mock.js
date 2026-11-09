@@ -45,14 +45,14 @@ window.__mockHass = (language, empty) => {
   const entities = {};
   const states = {};
   for (const [key, [state, attributes]] of Object.entries(sensors)) {
-    const id = `sensor.haru_${key}`;
+    const id = `sensor.john_${key}`;
     entities[id] = { entity_id: id, device_id: "dev1", platform: "piyolog", translation_key: key };
     states[id] = { state, attributes: attributes || {} };
   }
   return {
     states,
     entities,
-    devices: { dev1: { id: "dev1", name: "はる" } },
+    devices: { dev1: { id: "dev1", name: language === "en" ? "John" : "太郎" } },
     language,
     config: { time_zone: "Asia/Tokyo" },
   };

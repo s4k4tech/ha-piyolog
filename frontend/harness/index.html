@@ -39,12 +39,25 @@
         'box-shadow:0 1px 3px rgba(0,0,0,.15)}</style><slot></slot>';
     }
   });
+  // Stand-in for <ha-icon>. It draws the real Material Design Icons glyphs when the font can be loaded
+  // (needs network, used for the README screenshots) and a plain square otherwise.
+  const MDI = { "mdi:baby-bottle-outline": "\u{F0F3A}", "mdi:sleep": "\u{F04B2}" };
+  const mdiFace = document.createElement("style");
+  mdiFace.textContent = '@font-face{font-family:"mdi-harness";src:url("https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/fonts/materialdesignicons-webfont.woff2") format("woff2")}';
+  document.head.append(mdiFace);
   customElements.define("ha-icon", class extends HTMLElement {
+    static get observedAttributes() { return ["icon"]; }
     constructor() {
       super();
-      this.attachShadow({ mode: "open" }).innerHTML =
-        '<style>:host{display:inline-block;width:20px;height:20px}div{width:14px;height:14px;margin:3px;' +
-        'border-radius:4px;background:currentColor;opacity:.85}</style><div></div>';
+      this.attachShadow({ mode: "open" });
+      this.draw();
+    }
+    attributeChangedCallback() { this.draw(); }
+    draw() {
+      const glyph = MDI[this.getAttribute("icon")];
+      this.shadowRoot.innerHTML = '<style>:host{display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center}' +
+        'span{font:24px/1 "mdi-harness"}</style>' +
+        (glyph ? "<span>" + glyph + "</span>" : '<span style="font:14px/1 sans-serif">&#9632;</span>');
     }
   });
 </script>
@@ -61,7 +74,27 @@
     el.hass = hass;
     return el;
   };
-  if (params.get("list") === "1") {
+  if (params.get("card")) {
+    // One card on its own, used for the README screenshots: summary, list, timeline, compact-formula, compact-sleep.
+    const which = params.get("card");
+    grid.style.cssText = "display:block;margin:0";
+    const wrap = document.createElement("div");
+    const config = { device_id: "dev1" };
+    let tag = "piyolog-" + which + "-card";
+    if (which === "list") {
+      wrap.style.cssText = "width:235px;height:184px";
+    } else {
+      wrap.style.cssText = "width:420px";
+    }
+    if (which.startsWith("compact-")) {
+      tag = "piyolog-compact-card";
+      config.kind = which.slice("compact-".length);
+    }
+    const el = mk(tag, config);
+    if (which === "list") el.style.height = "100%";
+    wrap.append(el);
+    grid.append(wrap);
+  } else if (params.get("list") === "1") {
     // Mimics a sections row: 3 columns wide (235px), 3 rows high (184px).
     document.body.style.cssText = "margin:0;padding:16px;background:var(--bg)";
     grid.style.cssText = "display:flex;gap:8px;align-items:stretch;flex-wrap:wrap";
