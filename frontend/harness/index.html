@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>piyolog-card harness</title>
+<style>
+  /* Minimal stand-ins for Home Assistant's theme variables and elements. */
+  :root {
+    --primary-text-color: #212121; --secondary-text-color: #727272;
+    --divider-color: #e0e0e0; --secondary-background-color: #f1f3f4;
+    --card-background-color: #ffffff; --primary-color: #03a9f4;
+    --ha-card-background: #ffffff;
+  }
+  :root[data-theme="dark"] {
+    --primary-text-color: #e1e1e1; --secondary-text-color: #9b9b9b;
+    --divider-color: #2f3640; --secondary-background-color: #2a313a;
+    --card-background-color: #1c1c1c; --primary-color: #03a9f4;
+    --ha-card-background: #1c1c1c; color-scheme: dark;
+  }
+  body { margin: 0; padding: 24px; font-family: Roboto, system-ui, sans-serif;
+    background: var(--card-background-color); color: var(--primary-text-color); }
+  body { background: #fafafa; }
+  :root[data-theme="dark"] body { background: #111111; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px;
+    max-width: 1100px; margin: 0 auto; align-items: start; }
+  .col { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+  // Stand-ins for Home Assistant's own elements (they live in shadow roots, so page CSS cannot reach them).
+  customElements.define("ha-card", class extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" }).innerHTML =
+        '<style>:host{display:block;background:var(--ha-card-background);border-radius:12px;' +
+        'box-shadow:0 1px 3px rgba(0,0,0,.15)}</style><slot></slot>';
+    }
+  });
+  customElements.define("ha-icon", class extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" }).innerHTML =
+        '<style>:host{display:inline-block;width:20px;height:20px}div{width:14px;height:14px;margin:3px;' +
+        'border-radius:4px;background:currentColor;opacity:.85}</style><div></div>';
+    }
+  });
+</script>
+<script src="mock.js"></script>
+<script type="module" src="/custom_components/piyolog/frontend/piyolog-card.js"></script>
+<script type="module">
+  const params = new URLSearchParams(location.search);
+  if (params.get("theme") === "dark") document.documentElement.dataset.theme = "dark";
+  const hass = window.__mockHass(params.get("lang") || "ja", params.get("empty") === "1");
+  const grid = document.getElementById("grid");
+  const mk = (tag, config) => {
+    const el = document.createElement(tag);
+    el.setConfig({ type: `custom:${tag}`, ...config });
+    el.hass = hass;
+    return el;
+  };
+  const left = document.createElement("div"); left.className = "col";
+  const right = document.createElement("div"); right.className = "col";
+  left.append(mk("piyolog-summary-card", { device_id: "dev1" }));
+  right.append(
+    mk("piyolog-timeline-card", { device_id: "dev1" }),
+    mk("piyolog-compact-card", { device_id: "dev1", kind: "formula" }),
+    mk("piyolog-compact-card", { device_id: "dev1", kind: "sleep" }),
+  );
+  grid.append(left, right);
+</script>
+</body>
+</html>

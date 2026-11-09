@@ -119,3 +119,27 @@ async def test_diagnostics_hide_secret(hass: HomeAssistant, entry, mock_fetch, f
     data = await async_get_config_entry_diagnostics(hass, entry)
     assert SECRET not in str(data)
     assert data["summary"]["today_records"] == 5
+
+
+async def test_cards_are_served_and_loaded(hass: HomeAssistant) -> None:
+    from unittest.mock import AsyncMock, MagicMock
+
+    from custom_components.piyolog import CARD_PATH, CARD_URL, async_setup
+
+    assert CARD_PATH.is_file(), "run `npm run build` in frontend/ and commit the bundle"
+
+    hass.http = MagicMock(async_register_static_paths=AsyncMock())
+    hass.config.components.add("frontend")
+    with patch("homeassistant.components.frontend.add_extra_js_url") as add_url:
+        assert await async_setup(hass, {})
+
+    (config,), _ = hass.http.async_register_static_paths.call_args
+    assert [(c.url_path, c.path) for c in config] == [(CARD_URL, str(CARD_PATH))]
+    (_, url), _ = add_url.call_args
+    assert url.startswith(f"{CARD_URL}?v=")
+
+
+async def test_card_registration_is_skipped_without_http(hass: HomeAssistant) -> None:
+    from custom_components.piyolog import async_setup
+
+    assert await async_setup(hass, {})

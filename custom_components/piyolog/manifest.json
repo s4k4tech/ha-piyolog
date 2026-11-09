@@ -2,6 +2,7 @@
   "domain": "piyolog",
   "name": "PiyoLog",
   "codeowners": ["@s4k4tech"],
+  "after_dependencies": ["frontend", "http"],
   "config_flow": true,
   "documentation": "https://github.com/s4k4tech/ha-piyolog",
   "integration_type": "service",
