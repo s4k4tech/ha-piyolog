@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2
+
+- Use absolute URLs for the README images and links, so that they show up in HACS.
+
 ## 0.3.1
 
 - Expand the README (English and Japanese): one section per card with screenshots, options and examples, plus troubleshooting.
