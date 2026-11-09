@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+- Expand the README (English and Japanese): one section per card with screenshots, options and examples, plus troubleshooting.
+- Raise the minimum Home Assistant version to 2025.4, the oldest version the automated tests run on. The integration has been run on 2026.10.
+
 ## 0.3.0
 
 - Add `piyolog-list-card`, a narrow card that lists the latest records. It shows the last breastfeeding, pee, poop and sleep by default, and fits 3 columns by 3 rows in the sections view. Items are selectable and reorderable (`items`).
