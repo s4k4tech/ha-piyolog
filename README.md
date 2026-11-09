@@ -86,7 +86,7 @@ A feed URL contains a secret and works as a credential. Anyone who has it can re
 
 ```bash
 python3.13 -m venv .venv
-.venv/bin/pip install -e ".[dev]"
+.venv/bin/pip install -r requirements-dev.txt
 .venv/bin/ruff check . && .venv/bin/ruff format --check .
 .venv/bin/pytest
 ```
