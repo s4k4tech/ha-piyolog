@@ -41,6 +41,11 @@ export interface Strings {
   editorLegend: string;
   editorLog: string;
   editorQuick: string;
+  editorItems: string;
+  todayFormula: string;
+  todayBreastfeeding: string;
+  todayDiapers: string;
+  todaySleep: string;
   kindFormula: string;
   kindSleep: string;
   sleepStartedAt: string;
@@ -93,6 +98,11 @@ const ja: Strings = {
   editorLegend: "凡例を表示",
   editorLog: "最近の記録を表示",
   editorQuick: "下段の項目（並び順どおりに表示）",
+  editorItems: "表示する項目（並び順どおりに表示）",
+  todayFormula: "今日のミルク",
+  todayBreastfeeding: "今日の授乳",
+  todayDiapers: "今日のおむつ",
+  todaySleep: "今日の睡眠",
   kindFormula: "ミルク",
   kindSleep: "睡眠",
   sleepStartedAt: "就寝",
@@ -173,6 +183,11 @@ const en: Strings = {
   editorLegend: "Show legend",
   editorLog: "Show recent records",
   editorQuick: "Bottom items (shown in this order)",
+  editorItems: "Items (shown in this order)",
+  todayFormula: "Formula today",
+  todayBreastfeeding: "Breastfeedings today",
+  todayDiapers: "Diapers today",
+  todaySleep: "Sleep today",
   kindFormula: "Formula",
   kindSleep: "Sleep",
   sleepStartedAt: "Bedtime",

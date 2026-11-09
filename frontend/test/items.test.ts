@@ -19,3 +19,16 @@ describe("pickItems", () => {
     expect(() => pickItems("formula", SUMMARY_TILES, "tiles")).toThrow(/must be a list/);
   });
 });
+
+describe("list card defaults", () => {
+  it("shows breastfeeding, pee, poop and sleep unless items is set", async () => {
+    const { LIST_DEFAULT, LIST_ITEMS } = await import("../src/items");
+    expect(pickItems(undefined, LIST_ITEMS, "items", LIST_DEFAULT)).toEqual([
+      "breastfeeding",
+      "pee",
+      "poop",
+      "sleep",
+    ]);
+    expect(pickItems(["sleep", "formula"], LIST_ITEMS, "items", LIST_DEFAULT)).toEqual(["sleep", "formula"]);
+  });
+});

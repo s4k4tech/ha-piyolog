@@ -82,6 +82,7 @@ name: Haru               # optional, defaults to the device name
 |---|---|
 | `custom:piyolog-summary-card` | Time since the last formula, breastfeeding, pee and poop, today's totals, and the last sleep record |
 | `custom:piyolog-timeline-card` | Sleep, feeding and diaper records across today, plus the latest records |
+| `custom:piyolog-list-card` | A narrow list of the latest records (last breastfeeding, pee, poop and sleep by default). Sized 3 columns wide and 3 rows high in the sections view |
 | `custom:piyolog-compact-card` | One line for formula (`kind: formula`, default) or sleep (`kind: sleep`) |
 
 If there is only one PiyoLog device, `device_id` can be left out.
@@ -96,6 +97,7 @@ Every list below is shown in the order you write it. Leave an option out to show
 | summary | `totals` | `formula`, `breastfeeding`, `diapers`, `sleep` |
 | timeline | `rows` | `sleep`, `milk`, `diaper` |
 | timeline | `legend`, `log` | `true` / `false` (legend and recent records) |
+| list | `items` | `breastfeeding`, `pee`, `poop`, `sleep`, `formula`, `today_formula`, `today_breastfeeding`, `today_diapers`, `today_sleep` |
 | compact (`kind: formula`) | `quick` | `breastfeeding`, `diapers`, `poop_since` |
 
 ```yaml
