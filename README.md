@@ -2,18 +2,18 @@
 
 [![Release](https://img.shields.io/github/v/release/s4k4tech/ha-piyolog)](https://github.com/s4k4tech/ha-piyolog/releases)
 [![CI](https://github.com/s4k4tech/ha-piyolog/actions/workflows/ci.yml/badge.svg)](https://github.com/s4k4tech/ha-piyolog/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/s4k4tech/ha-piyolog/blob/main/LICENSE)
 [![HACS: Custom](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz)
 
-English | [日本語](README.ja.md)
+English | [日本語](https://github.com/s4k4tech/ha-piyolog/blob/main/README.ja.md)
 
 Home Assistant integration and dashboard cards for [PiyoLog](https://www.piyolog.com/) (a baby-care tracking app) data feeds.
 
 > **Unofficial project.** This project is not affiliated with, endorsed by, or sponsored by PiyoLog.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/summary-dark-en.png">
-  <img alt="The summary card" src="docs/images/summary-light-en.png" width="458">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-dark-en.png">
+  <img alt="The summary card" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-light-en.png" width="458">
 </picture>
 
 *The summary card, with sample data. The other cards are shown under [Dashboard cards](#dashboard-cards).*
@@ -91,8 +91,8 @@ For the lists below: items are shown in the order you write them. Leave an optio
 `custom:piyolog-summary-card`
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/summary-dark-en.png">
-  <img alt="The summary card" src="docs/images/summary-light-en.png" width="458">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-dark-en.png">
+  <img alt="The summary card" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/summary-light-en.png" width="458">
 </picture>
 
 Time since the last formula, breastfeeding, pee and poop, today's totals, and the last sleep record.
@@ -113,8 +113,8 @@ totals: [formula, sleep]
 `custom:piyolog-list-card`
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/list-dark-en.png">
-  <img alt="The list card" src="docs/images/list-light-en.png" width="273">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/list-dark-en.png">
+  <img alt="The list card" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/list-light-en.png" width="273">
 </picture>
 
 A narrow list with one line per record. It shows the last breastfeeding, pee, poop and sleep by default.
@@ -137,8 +137,8 @@ grid_options:
 `custom:piyolog-timeline-card`
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/timeline-dark-en.png">
-  <img alt="The timeline card" src="docs/images/timeline-light-en.png" width="458">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/timeline-dark-en.png">
+  <img alt="The timeline card" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/timeline-light-en.png" width="458">
 </picture>
 
 Sleep, feeding and diaper records across today, plus the latest records.
@@ -162,13 +162,13 @@ legend: false
 One line for formula (`kind: formula`, the default) or sleep (`kind: sleep`).
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/compact-formula-dark-en.png">
-  <img alt="The compact card for formula" src="docs/images/compact-formula-light-en.png" width="458">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-formula-dark-en.png">
+  <img alt="The compact card for formula" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-formula-light-en.png" width="458">
 </picture>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/compact-sleep-dark-en.png">
-  <img alt="The compact card for sleep" src="docs/images/compact-sleep-light-en.png" width="458">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-sleep-dark-en.png">
+  <img alt="The compact card for sleep" src="https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/compact-sleep-light-en.png" width="458">
 </picture>
 
 | Option | Items |
@@ -253,7 +253,7 @@ A feed URL contains a secret and works as a credential. Anyone who has it can re
 - Home Assistant stores the URL unencrypted in its `.storage` folder, so be careful when sharing backups.
 - If the URL leaks, revoke the feed in PiyoLog and create a new one. Home Assistant will ask for the new URL.
 
-To report a vulnerability, see [SECURITY.md](SECURITY.md).
+To report a vulnerability, see [SECURITY.md](https://github.com/s4k4tech/ha-piyolog/blob/main/SECURITY.md).
 
 ## Development
 
@@ -277,8 +277,8 @@ npm run build   # rewrites the bundle; commit the result
 
 To look at the cards without Home Assistant, serve the repository root (for example `python3 -m http.server`) and open `frontend/harness/index.html`. It uses a mock `hass` and a fixed clock. Useful query parameters: `?theme=dark`, `?lang=en`, `?list=1` (list card at its sections size), `?custom=1` (customised items) and `?card=summary` (one card on its own: `summary`, `list`, `timeline`, `compact-formula` or `compact-sleep`, as used for the screenshots).
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution rules and [CHANGELOG.md](CHANGELOG.md) for the release history.
+See [CONTRIBUTING.md](https://github.com/s4k4tech/ha-piyolog/blob/main/CONTRIBUTING.md) for the contribution rules and [CHANGELOG.md](https://github.com/s4k4tech/ha-piyolog/blob/main/CHANGELOG.md) for the release history.
 
 ## License
 
-[MIT](LICENSE)
+[MIT](https://github.com/s4k4tech/ha-piyolog/blob/main/LICENSE)

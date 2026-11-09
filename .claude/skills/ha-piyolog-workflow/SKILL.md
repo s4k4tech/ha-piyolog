@@ -54,6 +54,7 @@ When a PR changes how a card looks, attach screenshots with `gh pr create --body
 ## README rules
 
 - One section per card, each with an image, an options table and a YAML example.
+- Use absolute URLs for images (`https://raw.githubusercontent.com/s4k4tech/ha-piyolog/main/docs/images/...`) and for links to other files in the repository (`https://github.com/s4k4tech/ha-piyolog/blob/main/...`). HACS shows the README outside GitHub and does not resolve relative paths, so relative images did not appear there. In-page `#anchor` links stay as they are.
 - Sensor names in the README must match `custom_components/piyolog/translations/{en,ja}.json`. Check them, do not write them from memory.
 - State only what was verified. The minimum Home Assistant version in `hacs.json` and the README is the oldest version the automated tests run on (currently 2025.4). The integration has been run on 2026.10.
 - Anything the cards show must be something PiyoLog records or a plain summary of it. No predictions, and never "asleep": sleep is shown as the last Sleep/WakeUp record.
