@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0
+
+- Choose and reorder the items each card shows (`tiles`, `totals`, `rows`, `legend`, `log`, `quick`), also in the visual editor.
+
 ## 0.1.0
 
 First release.
