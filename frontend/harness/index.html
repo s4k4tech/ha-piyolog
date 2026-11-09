@@ -78,6 +78,9 @@
     // One card on its own, used for the README screenshots: summary, list, timeline, compact-formula, compact-sleep.
     const which = params.get("card");
     grid.style.cssText = "display:block;margin:0";
+    // Transparent ground, so the screenshot works on light and dark pages alike.
+    document.documentElement.style.background = "transparent";
+    document.body.style.background = "transparent";
     const wrap = document.createElement("div");
     const config = { device_id: "dev1" };
     let tag = "piyolog-" + which + "-card";

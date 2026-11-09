@@ -7,7 +7,7 @@ OUT_DIR defaults to docs/images. CARD is one of summary, list, timeline,
 compact-formula, compact-sleep (default: all). Needs Chrome (set CHROME to its
 binary if it is not in the macOS default place), Pillow, and network access
 (the compact card's icons come from the Material Design Icons font on a CDN).
-Writes <card>-<light|dark>-<en|ja>.png.
+Writes <card>-light-<en|ja>.png with a transparent background.
 """
 
 from __future__ import annotations
@@ -19,18 +19,19 @@ import tempfile
 import time
 from pathlib import Path
 
-from PIL import Image, ImageChops
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[4]
 CARDS = ["summary", "list", "timeline", "compact-formula", "compact-sleep"]
 PORT = 8765
-PAD = 32  # device pixels around the card (the screenshots are taken at 2x)
+PAD = 16  # device pixels around the card (the screenshots are taken at 2x)
+THEMES = ("light",)  # the README uses one image per card; it has a transparent background
 
 
 def crop(src: Path, dest: Path) -> None:
-    image = Image.open(src).convert("RGB")
-    background = Image.new("RGB", image.size, image.getpixel((2, 2)))
-    box = ImageChops.difference(image, background).getbbox()
+    image = Image.open(src).convert("RGBA")
+    # The page is transparent, so the alpha channel bounds the card and its shadow.
+    box = image.getchannel("A").getbbox()
     if box is None:
         raise SystemExit(f"nothing was drawn in {src.name}")
     left, top, right, bottom = box
@@ -65,7 +66,7 @@ def main() -> None:
         with tempfile.TemporaryDirectory() as tmp:
             for card in cards:
                 for lang in ("en", "ja"):
-                    for theme in ("light", "dark"):
+                    for theme in THEMES:
                         raw = Path(tmp) / f"{card}-{theme}-{lang}.png"
                         page = f"http://localhost:{PORT}/frontend/harness/index.html"
                         url = f"{page}?card={card}&lang={lang}&theme={theme}"
@@ -75,6 +76,7 @@ def main() -> None:
                                 "--headless=new",
                                 "--disable-gpu",
                                 "--hide-scrollbars",
+                                "--default-background-color=00000000",
                                 "--window-size=520,760",
                                 "--virtual-time-budget=8000",
                                 "--force-device-scale-factor=2",
